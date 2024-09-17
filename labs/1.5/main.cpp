@@ -1,6 +1,6 @@
 /**
  * Done by:
- * Student Name: Severyn Kotyhoroshko
+ * Student Name:Kaznienko Viktoria 
  * Student Group: 123
  * Lab 1.5
  */
@@ -18,7 +18,8 @@ int main() {
         int d = 40;
 
         // <УЛО1> (<УЛО2> (A<ОВ1>B) <БЛО> (<УЛО3> (C<ОВ2>D)))
-        //  empty (  !    (a == b)    ^   (   !   (c != d)))
+
+        //  empty (  !    (a == b)    ^   (   !   (c != d)))j
         bool res = (!(a == b) ^ (!(c != d)));
         cout << "res: " << boolalpha << res << endl;
     }
