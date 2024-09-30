@@ -13,7 +13,7 @@ int main() {
 	char chVar2 = 'j';
 
 	const char CONST2 = 0x40;//@
-	char chVar3;
+	char chVar3;//Ініціалізація змінної
 	chVar3 = 0x5;//\x5
 	char chVar4 = 0x53;//S
 	return 0;
