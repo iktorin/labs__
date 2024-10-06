@@ -1,19 +1,19 @@
-/*2. Задано дві послідовності, які складаються з 0 та 1.
-Скласти специфікацію для моделювання операцій XOR.*/
+/*2. Two sequences consisting of 0s and 1s are given.
+Create a specification for modeling XOR operations. */
 #include <iostream>
 #include <vector>
-#include <cstdlib>  // Для rand() і srand()
-#include <ctime>    // Для time()
+#include <cstdlib>  // For rand() and srand()
+#include <ctime>    // For time()
 #include "Windows.h"
 using namespace std;
 
-// Функція для виконання операції XOR між двома послідовностями
+// Function to perform XOR operation between two sequences
 vector<int> xorSequences(const vector<int>& A, const vector<int>& B) {
 
-    // Результуюча послідовність
+    // Resulting sequence
     vector<int> result(A.size());
 
-    // Виконуємо XOR для кожного елемента
+    // Perform XOR on each element
     for (size_t i = 0; i < A.size(); ++i) {
         result[i] = A[i] ^ B[i];
     }
@@ -21,16 +21,16 @@ vector<int> xorSequences(const vector<int>& A, const vector<int>& B) {
     return result;
 }
 
-// Функція для генерації випадкової послідовності з 0 і 1
+// Function to generate a random sequence of 0s and 1s
 vector<int> generateRandomSequence(size_t length) {
     vector<int> sequence(length);
     for (size_t i = 0; i < length; ++i) {
-        sequence[i] = rand() % 2;  // Генеруємо випадковий 0 або 1
+        sequence[i] = rand() % 2;  // Generate a random 0 or 1
     }
     return sequence;
 }
 
-// Функція для виведення послідовності
+// Function to print a sequence
 void printSequence(const vector<int>& sequence) {
     for (int bit : sequence) {
         cout << bit;
@@ -43,30 +43,30 @@ int main() {
     SetConsoleOutputCP(1251);
 
     setlocale(LC_ALL, "RU");
-    // Ініціалізуємо генератор випадкових чисел
+    // Initialize the random number generator
     srand(static_cast<unsigned>(time(0)));
 
-    // Запитуємо у користувача довжину послідовності
+    // Ask the user for the length of the sequence
     size_t length;
-    cout << "Введіть довжину послідовності: ";
+    cout << "Enter the sequence length: ";
     cin >> length;
 
-    // Генеруємо дві випадкові послідовності
+    // Generate two random sequences
     vector<int> A = generateRandomSequence(length);
     vector<int> B = generateRandomSequence(length);
 
-    // Виводимо згенеровані послідовності
-    cout << "Перша випадкова послідовність: ";
+    // Print the generated sequences
+    cout << "First random sequence: ";
     printSequence(A);
 
-    cout << "Друга випадкова послідовність: ";
+    cout << "Second random sequence: ";
     printSequence(B);
 
-    // Обчислюємо результат XOR
+    // Calculate the XOR result
     vector<int> result = xorSequences(A, B);
 
-    // Виводимо результат
-    cout << "Результат XOR: ";
+    // Print the result
+    cout << "XOR result: ";
     printSequence(result);
 
     return 0;

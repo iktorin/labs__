@@ -1,9 +1,7 @@
 //Done by: Kaznienko Viktoria 
 //123
-/*«адано множину посл≥довностей значень
-A[m, n]A[m, n]A[m, n], де m Ц номер посл≥довност≥, а n Ц к≥льк≥сть
-елемент≥в у m - т≥й посл≥довност≥.«найти ≥ндекси розм≥щенн€
-м≥н≥мального значенн€ в множин≥.*/
+/* Given a set of sequences of values A[m, n] where m is the sequence number and n is the number of elements in the m-th sequence.
+Find the indices of the minimum value within the set. */
 #include <iostream>
 #include <vector>
 #include <cstdlib>  // For rand() and srand()
