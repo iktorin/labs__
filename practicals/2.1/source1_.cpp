@@ -1,9 +1,7 @@
 //Done by: Kaznienko Viktoria
 //123 
-/*Задано множину послідовностей значень
-A[m, n]A[m, n]A[m, n], де m – номер послідовності, а n – кількість
-елементів у m - тій послідовності.Знайти максимальне значення
-за абсолютною величиною зі всієї множини послідовностей.*/
+/* Given a set of sequences of values A[m, n] where m is the sequence number and n is the number of elements in the m-th sequence.
+Find the maximum absolute value across the entire set of sequences. */
 #include <iostream>
 #include <vector>
 #include <cstdlib>  // For rand() and srand()
