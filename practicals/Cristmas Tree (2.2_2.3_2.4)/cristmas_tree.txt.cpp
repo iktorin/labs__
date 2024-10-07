@@ -11,7 +11,8 @@ Additional Requirements (Completes two practical tasks -> 2.3 and 2.4)
 
 Advanced (Completes tasks 2.2, 2.3, and 2.4)
 + Add a garland where the ornaments turn on and off */
-
+//Done : Kaznienko Viktoria
+//123
 #include <iostream>
 #include <fstream>
 #include <vector>
