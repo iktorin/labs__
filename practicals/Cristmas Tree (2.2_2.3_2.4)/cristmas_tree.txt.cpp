@@ -20,15 +20,14 @@ Advanced (Completes tasks 2.2, 2.3, and 2.4)
 #include <ctime>
 #include <thread>
 #include <chrono>
+#include <windows.h>
 
 using namespace std;
 
-// Функція для зміни кольору виведення
 void setColor(int colorCode) {
     cout << "\033[1;" << colorCode << "m";
 }
 
-// Функція для збереження ялинки у файл
 void saveTreeToFile(const vector<vector<char>>& tree) {
     ofstream file("christmas_tree.txt");
     if (file.is_open()) {
@@ -45,9 +44,9 @@ void saveTreeToFile(const vector<vector<char>>& tree) {
     }
 }
 
-// Функція для відображення ялинки з динамічним кольором іграшок
 void displayTree(const vector<vector<char>>& tree, const vector<pair<int, int>>& ornaments) {
     for (int i = 0; i < tree.size(); ++i) {
+        cout << "\033[" << i + 1 << ";1H"; // Переміщення курсору на початок рядка
         for (int j = 0; j < tree[i].size(); ++j) {
             char c = tree[i][j];
             if (c == '*') {
@@ -70,7 +69,6 @@ void displayTree(const vector<vector<char>>& tree, const vector<pair<int, int>>&
     setColor(37); // скидання кольору до білого
 }
 
-// Функція для генерування ялинки та розміщення іграшок
 vector<vector<char>> generateTree(int levels, vector<pair<int, int>>& ornaments) {
     vector<vector<char>> tree;
     int width = levels * 2 + 1;
@@ -82,10 +80,10 @@ vector<vector<char>> generateTree(int levels, vector<pair<int, int>>& ornaments)
             vector<char> line(width, ' ');
             int start = (width / 2) - row;
             for (int col = start; col < start + stars; ++col) {
-                if (rand() % 10 == 0) {
-                    char toy = "@$%#"[rand() % 4];
+                if (rand() % 4 == 0) {
+                    char toy = "@$!&^#"[rand() % 4];
                     line[col] = toy;
-                    ornaments.push_back({ tree.size(), col }); // зберігаємо координати іграшок
+                    ornaments.push_back({ tree.size(), col });
                 }
                 else {
                     line[col] = '*';
@@ -105,16 +103,19 @@ vector<vector<char>> generateTree(int levels, vector<pair<int, int>>& ornaments)
     return tree;
 }
 
-// Функція для реалізації блимання гірлянди
 void runGarland(vector<vector<char>>& tree, vector<pair<int, int>>& ornaments) {
+    cout << "\033[2J"; // Очищення всього екрану один раз
     while (true) {
         displayTree(tree, ornaments);
-        this_thread::sleep_for(chrono::milliseconds(500));
-        cout << "\033[2J\033[1;1H"; // очищення екрану
+        this_thread::sleep_for(chrono::milliseconds(200)); // Зміна інтервалу до 200 мс
     }
 }
 
 int main() {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    setlocale(LC_ALL, "RU");
     int levels;
     cout << "Введіть кількість рівнів ялинки: ";
     cin >> levels;
@@ -122,7 +123,6 @@ int main() {
     vector<pair<int, int>> ornaments;
     vector<vector<char>> tree = generateTree(levels, ornaments);
 
-    // Відображення та збереження ялинки
     saveTreeToFile(tree);
     runGarland(tree, ornaments);
 
