@@ -2,9 +2,12 @@
 #include <iostream>
 using namespace std;
 
-static int num = 0; // Static variable, initialized only once
-num++;
-cout << "Number: " << num << endl;
+void increment() {
+    static int num = 0; // Static variable, initialized only once
+    num++;
+
+    cout << "Number: " << num << endl;
+
 }
 
 int main() {
