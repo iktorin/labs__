@@ -14,7 +14,7 @@
 #include <iostream>  // Підключаємо бібліотеку для введення/виведення
 #include <string>    // Підключаємо бібліотеку для роботи з рядками
 #include <Windows.h> // для відоюраження кирилиці
-using namespace std;  // std для спрощення синтаксису
+using namespace std; // std для спрощення синтаксису
 
 // Функція, яка перевіряє, чи є рядок дійсним згідно з мовою L(V)
 bool isValidString(const string& word) {

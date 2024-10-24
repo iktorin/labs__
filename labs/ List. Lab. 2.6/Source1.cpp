@@ -1,91 +1,151 @@
- Task: Linked List and inline Functions
+﻿/*Done by: Kaznienko Viktoria.123
+Task: Linked List and inline Functions
 
-## Description :
-    You need to implement a singly linked list that allows adding elements to the front and end, removing elements from the front and end, searching for an element by value, reversing the list, clearing the list, and sorting the list in ascending order using the bubble sort algorithm.For this, you will use inline functions to improve performance.
+    1. addToEnd : Implement an inline function for adding an element to the end of the list
+    3. removeFromEnd : Implement an inline function for removing the last element from the list
+    4. searchElement : Implement an inline function for searching for an element by value in the list and returning the pointer to the found element.If the element is not found, the function should return nullptr.
+    5. reverseList : Implement an inline function for reversing the list
+    6. toTwoWayList : Implement an inline function for converting the singly linked list to a two - way circular linked list.
+    7. clearList : Implement an inline function for clearing the list and releasing the memory for all nodes using the delete operator.
+    */
 
-    Some of the functions are already implemented for you, but you need to implement the rest of the functions.
-
-    ## Steps :
-    1. Node Structure
-
-    Create a structure for a list node, which will store an integer and a pointer to the next element.
-
-    ```cpp
-    struct Node {
-    int data;
-    Node* next;
+#include <iostream>
+#include <Windows.h>
+using namespace std;
+// Структура вузла однозв'язного списку
+struct Node {
+    int data;   // Поле для зберігання даних
+    Node* next; // Вказівник на наступний елемент
 };
-```
 
-2. Functions for Working with the List
-
-Implement functions for adding elements, removing elements, and printing all elements.These functions should be inline.
-
-```cpp
-// Inline function to add an element to the front of the list
-inline void addToFront(Node * *head, int value) {
-    Node* newNode = new Node;
-    newNode->data = value;
-    newNode->next = *head;
-    *head = newNode;
+// Функція для додавання елемента на початок списку
+inline void addToFront(Node** head, int value) {
+    Node* newNode = new Node; // Створюємо новий вузол
+    newNode->data = value;    // Присвоюємо значення новому вузлу
+    newNode->next = *head;    // Вказуємо, що новий вузол буде посилатися на поточний "головний" елемент
+    *head = newNode;          // Робимо новий вузол "головним" елементом списку
 }
 
-// Inline function to remove an element from the front of the list
-inline void removeFromFront(Node * *head) {
-    if (*head != nullptr) {
-        Node* temp = *head;
-        *head = (*head)->next;
-        delete temp;
+// Функція для додавання елемента в кінець списку
+inline void addToEnd(Node** head, int value) {
+    Node* newNode = new Node;   // Створюємо новий вузол
+    newNode->data = value;      // Присвоюємо значення новому вузлу
+    newNode->next = nullptr;    // Новий елемент буде останнім, тому next = nullptr
+    if (*head == nullptr) {     // Якщо список порожній
+        *head = newNode;        // Новий елемент стає головним елементом
+    }
+    else {
+        Node* current = *head;  // Починаємо з головного елемента
+        while (current->next != nullptr) { // Проходимо до останнього елемента списку
+            current = current->next;
+        }
+        current->next = newNode; // Додаємо новий елемент в кінець списку
     }
 }
 
-// Inline function to print all elements of the list
-inline void printList(Node * head) {
-    Node* current = head;
-    while (current != nullptr) {
-        std::cout << current->data << " -> ";
-        current = current->next;
+// Функція для видалення елемента з початку списку
+inline void removeFromFront(Node** head) {
+    if (*head != nullptr) {       // Якщо список не порожній
+        Node* temp = *head;       // Зберігаємо поточний головний елемент для видалення
+        *head = (*head)->next;    // Змінюємо головний елемент на наступний
+        delete temp;              // Видаляємо попередній головний елемент
     }
-    std::cout << "null" << std::endl;
 }
-```
 
-3. Main Program
+// Функція для видалення елемента з кінця списку
+inline void removeFromEnd(Node** head) {
+    if (*head == nullptr) return;   // Якщо список порожній, нічого не робимо
+    if ((*head)->next == nullptr) { // Якщо у списку лише один елемент
+        delete* head;               // Видаляємо цей елемент
+        *head = nullptr;            // Робимо список порожнім
+    }
+    else {
+        Node* current = *head;      // Починаємо з головного елемента
+        while (current->next->next != nullptr) { // Шукаємо передостанній елемент
+            current = current->next;
+        }
+        delete current->next;       // Видаляємо останній елемент
+        current->next = nullptr;    // Останній елемент списку тепер передостанній
+    }
+}
 
-In the main function, create a list, add a few elements, remove one, and display the results.
+// Функція для пошуку елемента за значенням
+inline Node* searchElement(Node* head, int value) {
+    Node* current = head;       // Починаємо з головного елемента
+    while (current != nullptr) { // Проходимо по всіх елементах
+        if (current->data == value) { // Якщо знаходимо елемент з потрібним значенням
+            return current;      // Повертаємо вказівник на цей елемент
+        }
+        current = current->next; // Переходимо до наступного елемента
+    }
+    return nullptr;              // Якщо елемент не знайдений, повертаємо nullptr
+}
 
-```cpp
+
+// Функція для очищення списку (видалення всіх елементів)
+inline void clearList(Node** head) {
+    while (*head != nullptr) {  // Поки список не порожній
+        removeFromFront(head);  // Видаляємо елементи один за одним з початку
+    }
+}
+
+// Функція для виведення всіх елементів списку
+inline void printList(Node* head) {
+    Node* current = head;           // Починаємо з головного елемента
+    while (current != nullptr) {    // Проходимо по всіх елементах
+        cout << current->data << " -> "; // Виводимо значення елемента
+        current = current->next;    // Переходимо до наступного елемента
+    }
+    cout << "null" << endl; // Виводимо "null" в кінці списку
+}
+
 int main() {
-    Node* head = nullptr;
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 
-    // Adding elements to the list
+    setlocale(LC_ALL, "RU");
+    Node* head = nullptr; // Створюємо порожній список
+
+    // Додаємо елементи на початок списку
     addToFront(&head, 10);
     addToFront(&head, 20);
     addToFront(&head, 30);
 
-    // Printing the list
-    std::cout << "List after adding elements: ";
+    // Виводимо список після додавання елементів
+    cout << "Список після додавання елементів на початок: ";
     printList(head);
 
-    // Removing an element from the front
-    removeFromFront(&head);
-    std::cout << "List after removing an element: ";
+    // Додаємо елементи в кінець списку
+    addToEnd(&head, 40);
+    addToEnd(&head, 50);
+
+    // Виводимо список після додавання елементів в кінець
+    cout << "Список після додавання елементів в кінець: ";
     printList(head);
 
-    // Clearing the list
-    while (head != nullptr) {
-        removeFromFront(&head);
+    // Шукаємо елемент зі значенням 20
+    Node* search = searchElement(head, 20);
+    if (search) {
+        cout << "Елемент 20 знайдений." << endl;
     }
+    else {
+        cout << "Елемент 20 не знайдений." << endl;
+    }
+
+    // Видаляємо елемент з початку списку
+    removeFromFront(&head);
+    cout << "Список після видалення елемента з початку: ";
+    printList(head);
+
+    // Видаляємо елемент з кінця списку
+    removeFromEnd(&head);
+    cout << "Список після видалення елемента з кінця: ";
+    printList(head);
+
+    // Очищаємо список
+    clearList(&head);
+    cout << "Список після очищення: ";
+    printList(head);
 
     return 0;
 }
-```
-
-## Tasks:
-1. addToEnd : Implement an inline function for adding an element to the end of the list
-3. removeFromEnd : Implement an inline function for removing the last element from the list
-4. searchElement : Implement an inline function for searching for an element by value in the list and returning the pointer to the found element.If the element is not found, the function should return nullptr.
-5. reverseList : Implement an inline function for reversing the list
-6. sortList : Implement an inline function for sorting the list in ascending order using the bubble sort algorithm.
-7. toTwoWayList : Implement an inline function for converting the singly linked list to a two - way circular linked list.
-8. clearList : Implement an inline function for clearing the list and releasing the memory for all nodes using the delete operator.
